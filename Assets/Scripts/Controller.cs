@@ -292,7 +292,33 @@ public class Controller : MonoBehaviour
 
     public void FindSelectableTiles(bool cop)
     {
-        
+        int indexcurrentTile;
+
+        if (cop == true)
+        {
+            indexcurrentTile = cops[clickedCop].GetComponent<CopMove>().currentTile;
+        }
+        else
+        {
+            indexcurrentTile = robber.GetComponent<RobberMove>().currentTile;
+        }
+
+        //La ponemos rosa porque acabamos de hacer un reset
+        tiles[indexcurrentTile].current = true;
+
+        //Cola para el BFS
+        Queue<Tile> nodes = new Queue<Tile>();
+
+        //TODO: Implementar BFS. Los nodos seleccionables los ponemos como selectable=true
+        //Tendrás que cambiar este código por el BFS
+        setSelectableTiles(indexcurrentTile);
+
+        // Evito que pase por donde esta el otro policia
+        int cop1 = cops[0].GetComponent<CopMove>().currentTile;
+        int cop2 = cops[1].GetComponent<CopMove>().currentTile;
+        tiles[cop1].selectable = false;
+        tiles[cop2].selectable = false;
+        //tiles[indexcurrentTile].selectable = false;
     }
     //Controlo que no pueda pasar con una ficha atraves de la otra
     private void copCollisionHandle(int cop_id)
