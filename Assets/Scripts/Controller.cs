@@ -236,7 +236,20 @@ public class Controller : MonoBehaviour
 
     public void RobberTurn()
     {
+        clickedTile = robber.GetComponent<RobberMove>().currentTile;
+        tiles[clickedTile].current = true;
+        FindSelectableTiles(false);
 
+        /*TODO: Cambia el código de abajo para hacer lo siguiente
+        - Elegimos una casilla aleatoria entre las seleccionables que puede ir el caco
+        - Movemos al caco a esa casilla
+        - Actualizamos la variable currentTile del caco a la nueva casilla
+        */
+
+        //setSelectableTiles(clickedTile);
+        int randomTile = getRandomSelectableTileNumber();
+        robber.GetComponent<RobberMove>().MoveToTile(tiles[randomTile]);
+        robber.GetComponent<RobberMove>().currentTile = randomTile;
     }
 
     private int getRandomSelectableTileNumber()
